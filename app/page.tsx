@@ -1,7 +1,6 @@
 'use client'
 import { useState } from "react";
 import { COUNTRIES } from "./utils/countries";
-import { getChecklistFromOpenAI } from "./utils/api";
 import { Checklist } from "./components/Checklist";
 
 export default function Home() {
@@ -27,11 +26,22 @@ export default function Home() {
       setDisplayLoadingMessage(true)
     }, 5000)
 
-    getChecklistFromOpenAI({ origin, destination })
-      .then(data => data.json())
+    fetch('/api/checklist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ origin, destination })
+    })
+      .then(response => response.json())
       .then(data => {
         console.log(data)
         setChecklist(data.output[1].content[0].text)
+        setIsLoading(false)
+        setDisplayLoadingMessage(false)
+      })
+      .catch(error => {
+        console.error('Error:', error)
         setIsLoading(false)
         setDisplayLoadingMessage(false)
       })
@@ -64,7 +74,7 @@ export default function Home() {
       {displayLoadingMessage && (
         <p className="pt-2 text-center">Working on it still...</p>
       )}
-      <button className="border-1 border-solid border-teal-500 text-teal-500 py-2 px-4 rounded-lg my-4 hover:bg-teal-500 hover:text-white cursor-pointer" onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Generate checklist"}</button>
+      <button className={`border-1 border-solid border-teal-500 text-teal-500 py-2 px-4 rounded-lg my-4 hover:bg-teal-500 hover:text-white ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Generate checklist"}</button>
       {checklist && (
         <Checklist checklist={checklist} />
       )}
