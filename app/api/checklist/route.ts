@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
-
+    
     const response = await getChecklistFromOpenAI({ originCountry, destination })
     return NextResponse.json(response)
   } catch (error) {
