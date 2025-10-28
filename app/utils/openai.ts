@@ -18,6 +18,7 @@ export const getChecklistApiBody = (originCountry: string, destination: string):
                 destination
             }
         },
+        max_output_tokens: 1000,
         text: {
             format: {
                 type: "json_schema",
