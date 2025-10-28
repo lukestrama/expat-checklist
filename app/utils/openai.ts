@@ -9,10 +9,10 @@ interface ChecklistParams {
 }
 export const getChecklistApiBody = (originCountry: string, destination: string): OpenAI.Responses.ResponseCreateParams => {
     return {
-        model: "gpt-5",
+        model: "gpt-5-nano",
         prompt: {
             id: "pmpt_68fcd401a80c8190bb63d9f3e5cdda3f084c9f8714cd40f3",
-            version: "5",
+            version: "7",
             variables: {
                 origincountry: originCountry,
                 destination
