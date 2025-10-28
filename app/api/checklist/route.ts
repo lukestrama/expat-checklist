@@ -3,16 +3,16 @@ import { getChecklistFromOpenAI } from '../../utils/openai'
 
 export async function POST(request: NextRequest) {
   try {
-    const { origin, destination } = await request.json()
+    const { originCountry, destination } = await request.json()
     
-    if (!origin || !destination) {
+    if (!originCountry || !destination) {
       return NextResponse.json(
         { error: 'Origin and destination are required' },
         { status: 400 }
       )
     }
 
-    const response = await getChecklistFromOpenAI({ origin, destination })
+    const response = await getChecklistFromOpenAI({ originCountry, destination })
     return NextResponse.json(response)
   } catch (error) {
     console.error('Error generating checklist:', error)

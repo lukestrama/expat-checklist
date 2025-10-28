@@ -4,14 +4,14 @@ import { COUNTRIES } from "./utils/countries";
 import { Checklist } from "./components/Checklist";
 
 export default function Home() {
-  const [origin, setOrigin] = useState('Select Origin')
+  const [originCountry, setOriginCountry] = useState('Select Origin')
   const [destination, setDestination] = useState('Select Destination')
   const [checklist, setChecklist] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [displayLoadingMessage, setDisplayLoadingMessage] = useState(false)
 
-  const handleOriginChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setOrigin(e.target.value)
+  const handleOriginCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setOriginCountry(e.target.value)
   }
 
   const handleDestinationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -31,7 +31,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ origin, destination })
+      body: JSON.stringify({ originCountry, destination })
     })
       .then(response => response.json())
       .then(data => {
@@ -64,7 +64,7 @@ export default function Home() {
             return <option key={idx} value={country}>{country}</option>
           })}
         </select>
-        <select className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1"  value={origin} onChange={handleOriginChange}>
+        <select className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1"  value={originCountry} onChange={handleOriginCountryChange}>
           <option value={'Select Origin'}>{"Select Origin"}</option>
           {COUNTRIES.map((country, idx) => {
             return <option key={idx} value={country}>{country}</option>

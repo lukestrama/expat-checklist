@@ -4,17 +4,17 @@ import OpenAI from "openai";
 const client = new OpenAI({ });
 
 interface ChecklistParams {
-    origin: string,
+    originCountry: string,
     destination: string
 }
-export const getChecklistApiBody = (origin: string, destination: string): OpenAI.Responses.ResponseCreateParams => {
+export const getChecklistApiBody = (originCountry: string, destination: string): OpenAI.Responses.ResponseCreateParams => {
     return {
         model: "gpt-5",
         prompt: {
             id: "pmpt_68fcd401a80c8190bb63d9f3e5cdda3f084c9f8714cd40f3",
             version: "4",
             variables: {
-                origin,
+                originCountry,
                 destination
             }
         },
@@ -63,8 +63,8 @@ export const getChecklistApiBody = (origin: string, destination: string): OpenAI
 }
 
 export const getChecklistFromOpenAI = async (params: ChecklistParams) => {
-    const { origin, destination } = params
-    const body = getChecklistApiBody(origin, destination)
+    const { originCountry, destination } = params
+    const body = getChecklistApiBody(originCountry, destination)
 
     return await client.responses.create(body)
 }
