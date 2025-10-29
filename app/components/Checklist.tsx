@@ -22,13 +22,13 @@ export const Checklist = ({ checklist }: { checklist: string }) => {
         <div className='w-full'>
             <div className='grid grid-cols-2 w-full text-center mb-4'>
                 <button
-                    className={`${currentView === CHECKLIST_SECTIONS.BEFORE_LEAVING ? 'bg-teal-500 text-white' : 'hover:bg-teal-100'} cursor-pointer`}
+                    className={`${currentView === CHECKLIST_SECTIONS.BEFORE_LEAVING ? 'bg-teal-500 text-white' : 'hover:bg-teal-100'} cursor-pointer rounded-l-xl`}
                     type='button'
                     onClick={() => handleToggle(CHECKLIST_SECTIONS.BEFORE_LEAVING)}>
                     <h2 className='text-lg font-900 p-4'>Before leaving</h2>
                 </button>
                 <button
-                    className={`${currentView === CHECKLIST_SECTIONS.AFTER_ARRIVING ? 'bg-teal-500 text-white' : 'hover:bg-teal-100'} cursor-pointer`}
+                    className={`${currentView === CHECKLIST_SECTIONS.AFTER_ARRIVING ? 'bg-teal-500 text-white' : 'hover:bg-teal-100'} cursor-pointer rounded-r-xl`}
                     type='button'
                     onClick={() => handleToggle(CHECKLIST_SECTIONS.AFTER_ARRIVING)}>
                     <h2 className='text-lg font-900 p-4'>After arriving</h2>

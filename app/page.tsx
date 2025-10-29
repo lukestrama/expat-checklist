@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { COUNTRIES } from "./utils/countries";
 import { Checklist } from "./components/Checklist";
+import Image from "next/image";
 
 export default function Home() {
   const [originCountry, setOriginCountry] = useState('Select Origin')
@@ -50,34 +51,43 @@ export default function Home() {
 
 
   return (
-    <div className="bg-zinc-50 flex flex-col font-sans mb-auto min-h-screen mx-auto p-10">
-      <div className="max-w-full grid grid-cols-2 gap-2">
-        <div className="text-xl">
-          Origin
+    <div className="relative bg-[#FFF1E2] flex flex-col font-sans mb-auto min-h-screen mx-auto p-5 pt-15">
+          <Image className="absolute top-0 right-0 z-0" src="/images/palm_tree.png" width={300} height={300} alt="Picture of a palm tree" priority/>
+        <section className="w-full text-center sm:text-left sm:w-[50%] pl-10 z-1">
+          <div>
+            <h1 className="text-5xl font-900">Expat Checklist</h1>
+            <p className="my-6 leading-7">Select your origin and destination countries to get a list of tasks to do before and after you arrive.</p>
+          </div>
+        </section>
+      <div className="bg-white mx-10 py-2 sm:py-5 px-5 sm:px-10 rounded-3xl z-1">
+        <div className="max-w-full grid grid-cols-2 gap-2">
+          <div className="text-xl">
+            Origin
+          </div>
+          <div className="text-xl">
+            Destination
+          </div>
+          <select name="Select origin" className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1"  value={originCountry} onChange={handleOriginCountryChange}>
+            <option value={'Select Origin'}>{"Select Origin"}</option>
+            {COUNTRIES.map((country, idx) => {
+              return <option key={idx} value={country}>{country}</option>
+            })}
+          </select>
+          <select name="Select destination" className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1" value={destination} onChange={handleDestinationChange}>
+            <option value={'Select Origin'}>{"Select Destination"}</option>
+            {COUNTRIES.map((country, idx) => {
+              return <option key={idx} value={country}>{country}</option>
+            })}
+          </select>
         </div>
-        <div className="text-xl">
-          Destination
-        </div>
-        <select className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1" value={destination} onChange={handleDestinationChange}>
-          <option value={'Select Origin'}>{"Select Destination"}</option>
-          {COUNTRIES.map((country, idx) => {
-            return <option key={idx} value={country}>{country}</option>
-          })}
-        </select>
-        <select className="cursor-pointer hover:bg-gray-300 border-gray-500 border-solid border-1"  value={originCountry} onChange={handleOriginCountryChange}>
-          <option value={'Select Origin'}>{"Select Origin"}</option>
-          {COUNTRIES.map((country, idx) => {
-            return <option key={idx} value={country}>{country}</option>
-          })}
-        </select>
+        {displayLoadingMessage && (
+          <p className="pt-2 text-center">Working on it still...</p>
+        )}
+        <button className={`w-full border-1 border-solid border-teal-500 text-teal-500 py-2 px-4 rounded-lg my-4 hover:bg-teal-500 hover:text-white ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Generate checklist"}</button>
+        {checklist && (
+          <Checklist checklist={checklist} />
+        )}
       </div>
-      {displayLoadingMessage && (
-        <p className="pt-2 text-center">Working on it still...</p>
-      )}
-      <button className={`border-1 border-solid border-teal-500 text-teal-500 py-2 px-4 rounded-lg my-4 hover:bg-teal-500 hover:text-white ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Generate checklist"}</button>
-      {checklist && (
-        <Checklist checklist={checklist} />
-      )}
     </div>
   );
 }
