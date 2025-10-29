@@ -9,7 +9,6 @@ export default function Home() {
   const [destination, setDestination] = useState('Select Destination')
   const [checklist, setChecklist] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [displayLoadingMessage, setDisplayLoadingMessage] = useState(false)
 
   const handleOriginCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOriginCountry(e.target.value)
@@ -23,10 +22,6 @@ export default function Home() {
     setIsLoading(true)
     setChecklist('')
     
-    setTimeout(() => {
-      setDisplayLoadingMessage(true)
-    }, 5000)
-
     fetch('/api/checklist', {
       method: 'POST',
       headers: {
@@ -39,12 +34,10 @@ export default function Home() {
         console.log(data)
         setChecklist(data.output[1].content[0].text)
         setIsLoading(false)
-        setDisplayLoadingMessage(false)
       })
       .catch(error => {
         console.error('Error:', error)
         setIsLoading(false)
-        setDisplayLoadingMessage(false)
       })
   }
 
@@ -80,9 +73,6 @@ export default function Home() {
             })}
           </select>
         </div>
-        {displayLoadingMessage && (
-          <p className="pt-2 text-center">Working on it still...</p>
-        )}
         <button className={`w-full border-1 border-solid border-teal-500 text-teal-500 py-2 px-4 rounded-lg my-4 hover:bg-teal-500 hover:text-white ${isLoading ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={handleSubmit} disabled={isLoading}>{isLoading ? <i className="fa-solid fa-spinner fa-spin"></i> : "Generate checklist"}</button>
         {checklist && (
           <Checklist checklist={checklist} />
