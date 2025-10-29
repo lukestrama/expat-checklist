@@ -51,15 +51,15 @@ export default function Home() {
 
 
   return (
-    <div className="relative bg-[#FFF1E2] flex flex-col font-sans mb-auto min-h-screen mx-auto p-5 pt-15">
-          <Image className="absolute top-0 right-0 z-0" src="/images/palm_tree.png" width={300} height={300} alt="Picture of a palm tree" priority/>
-        <section className="w-full text-center sm:text-left sm:w-[50%] pl-10 z-1">
+    <div className="relative bg-[#FFF1E2] flex flex-col font-sans mb-auto min-h-screen mx-auto p-5 sm:pt-20">
+          <Image className="absolute top-[-15px] right-0 z-0" src="/images/palm_tree.png" width={300} height={300} alt="Picture of a palm tree" priority/>
+        <section className="w-full text-center sm:text-left sm:w-[50%] p-2 sm:pl-10 z-1">
           <div>
             <h1 className="text-5xl font-900">Expat Checklist</h1>
             <p className="my-6 leading-7">Select your origin and destination countries to get a list of tasks to do before and after you arrive.</p>
           </div>
         </section>
-      <div className="bg-white mx-10 py-2 sm:py-5 px-5 sm:px-10 rounded-3xl z-1">
+      <div className="bg-white mx-4 sm:mx-10 py-2 sm:py-5 px-5 sm:px-10 rounded-3xl z-1">
         <div className="max-w-full grid grid-cols-2 gap-2">
           <div className="text-xl">
             Origin
